@@ -128,18 +128,22 @@ See [bateam/models.py:371](bateam/models.py#L371) (`resolve_model`).
 
 ### 1. Prerequisites
 
-- Python ≥ 3.10
+- Python ≥ 3.11
 - [Ollama](https://ollama.com/download) installed and running
 - ~15 GB free disk space for the model image
 
-### 2. Install
+### 2. Clone and install
 
 ```bash
-cd /path/to/cyber-agent-team
+git clone https://github.com/ozzy76/cyber-agent-team.git
+cd cyber-agent-team
 python3 -m venv bistaff
 source bistaff/bin/activate
 pip install -e .
 ```
+
+`pip install -e .` pulls in `google-adk`, which provides the `adk` command
+used below (`adk web`).
 
 ### 3. Pull Ollama models
 
@@ -187,6 +191,30 @@ bistaff/bin/python scripts/run_engagement_test.py \
 
 Prints every transfer, function call, function response, and the final
 synthesized answer with elapsed timestamps.
+
+### 7. Things to try
+
+Once `adk web agents` is running, start with `project_mgr` and give it a
+request that spans more than one specialist — that's the fastest way to see
+`transfer_to_agent` and multi-agent synthesis in action:
+
+> We're a healthcare startup, not encrypting data at rest, and a VC wants a
+> security due-diligence summary before their Series A. Where do we stand?
+
+Or talk to a specialist directly (pick it from the `adk web` dropdown) to see
+a single skill without orchestration overhead:
+
+| Agent | Try asking… |
+|-------|--------------|
+| `architect` | "Threat-model a public-facing API that handles PII for a B2B SaaS product." |
+| `cti_mgr` | "What passive OSINT would you collect on a company's external attack surface before an engagement?" |
+| `grc_mgr` | "Walk me through a SOC 2 Type II gap assessment for an early-stage startup." |
+| `ops_mgr` | "We just found a critical CVE in a public-facing service — walk me through triage and response." |
+
+Watch the `adk web` UI's event log while you do this — it shows each skill
+load, tool call, and (for `project_mgr`) each `transfer_to_agent` hop, which
+is the easiest way to build intuition for how progressive disclosure and
+routing actually work before reading the sections below.
 
 ---
 
