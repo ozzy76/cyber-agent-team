@@ -1,0 +1,94 @@
+# --- Environment & secrets ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+credentials.json
+service-account*.json
+client_secret*.json
+gha-*.json
+
+# --- macOS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# --- Linux ---
+*~
+.directory
+.Trash-*
+
+# --- Windows ---
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- Editor / IDE ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+*~
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+
+# --- Virtual envs ---
+bistaff/
+.venv/
+venv/
+env/
+ENV/
+
+# --- ADK / agent runtime artifacts ---
+.adk/
+*.session.json
+sessions/
+artifacts/
+logs/
+*.log
+
+# --- Cloud / deployment ---
+.terraform/
+*.tfstate
+*.tfstate.backup
+.gcloud/
+.cloud_run_config
+
+# --- Local data ---
+*.sqlite
+*.sqlite3
+*.db
+data/local/
+tmp/
+.tmp/
+
+# --- MCP / OAuth artifacts (defensive — these live outside the repo by default) ---
+oauth_client.json
+gdrive_token.json
+*_token.json
+audit.jsonl

@@ -1,0 +1,22 @@
+name: project_mgr
+role: Project Manager (Orchestrator)
+domain: orchestration
+description: >
+  BATeam Project Manager / orchestrator. Coordinates four specialist agents
+  (architect, cti_mgr, grc_mgr, ops_mgr) for vCISO, vCIO, and VC
+  due-diligence engagements. Use as the entry point for any
+  multi-discipline request.
+models:
+  local: ollama/gemma4:12b
+  prod: gemini-2.5-pro
+sampling:
+  num_ctx: 8192        # routing + synthesis only — playbook content is on-demand
+  temperature: 0.15
+sub_agents:
+  - architect
+  - cti_mgr
+  - grc_mgr
+  - ops_mgr
+skills:
+  - engagement-orchestration   # on-demand: phases, PMP governance, KPIs, prioritization
+instruction_source: INSTRUCTION.md   # lean routing core; always loaded

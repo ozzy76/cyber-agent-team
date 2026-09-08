@@ -1,0 +1,24 @@
+name: ops_mgr
+role: Security Operations Manager
+domain: security
+description: >
+  Security Operations Manager — incident response, security monitoring,
+  SOC operations, vulnerability management. Use for alert triage, log
+  analysis, and playbook execution support.
+models:
+  local: ollama/gemma4:12b
+  prod: gemini-2.5-flash
+sampling:
+  # Report-writing agent, and previously at the same undersized 8192 that
+  # produced empty output in cti_mgr. An IR/postmortem session loads skills +
+  # context and must still leave room to generate a full report. See fix (#8).
+  num_ctx: 32768
+  num_predict: 4096  # reserve output headroom so a full prompt can't zero out generation
+  temperature: 0.1
+  top_p: 0.9
+skills:
+  - incident-response
+  - security-monitoring
+  - soc-operations
+  - vulnerability-management
+operating_mode: copilot

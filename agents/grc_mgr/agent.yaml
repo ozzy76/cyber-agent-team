@@ -1,0 +1,24 @@
+name: grc_mgr
+role: Governance, Risk & Compliance Manager
+domain: security
+description: >
+  Governance, Risk & Compliance Manager — compliance monitoring, policy
+  development, risk assessment, third-party audit. Use for NIST CSF / ISO
+  27001 / SOC 2 / PCI DSS gap assessments and policy drafting.
+models:
+  local: ollama/gemma4:12b
+  prod: claude-sonnet-4-6@20251001
+sampling:
+  # Report-writing agent: a multi-skill session must still leave room to
+  # generate a full-length document (policy, risk assessment, audit report).
+  # See the cti_mgr empty-output fix (#8).
+  num_ctx: 32768
+  num_predict: 4096  # reserve output headroom so a full prompt can't zero out generation
+  temperature: 0.15
+skills:
+  - compliance-monitoring
+  - policy-development
+  - risk-assessment
+  - scf-intelligence
+  - thirdparty-audit
+rag_pattern: client_policy_documents   # do not fine-tune

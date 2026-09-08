@@ -1,0 +1,27 @@
+name: cti_mgr
+role: Cyber Threat Intelligence Manager
+domain: security
+description: >
+  Cyber Threat Intelligence Manager — adversary tracking, intel reporting,
+  OSINT collection, threat analysis. Use for IOC analysis, MITRE ATT&CK
+  mapping, CVE triage, and threat-actor profiling.
+models:
+  local: ollama/gemma4:12b
+  prod: gemini-2.5-flash
+sampling:
+  # Report-writing is this agent's core job. An 8192 window saturated once a
+  # session loaded 2 skills + several web-search blocks + prior drafts, leaving
+  # no room to generate a 5–12 page Threat Landscape Briefing (empty output).
+  num_ctx: 32768
+  # Reserve a hard output budget so a full prompt can never crowd generation
+  # to zero tokens again. ~4k tokens ≈ the long end of a briefing.
+  num_predict: 4096
+  temperature: 0.1
+  top_p: 0.9
+skills:
+  - adversary-tracking
+  - cve-prioritization
+  - intel-reporting
+  - osint-collection
+  - threat-analysis
+default_mode: read-only

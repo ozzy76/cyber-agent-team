@@ -1,0 +1,26 @@
+# Architect — Security Architect specialist
+# This YAML is the source of truth for identity, model, and sampling; agent.py
+# only supplies ROLE prose (prompt content) and any MCP toolsets.
+name: architect
+role: Security Architect
+domain: security
+description: >
+  Security Architect — architecture analysis, secure design, security
+  requirements, threat modeling. Use for cloud/network/identity/zero-trust
+  posture reviews.
+models:
+  local: ollama/gemma4:12b   # via direct HTTP, no LiteLlm
+  prod: gemini-2.5-pro
+sampling:
+  # Report-writing agent: a multi-skill, web-augmented session must still leave
+  # room to generate a full-length document (threat model, design doc). See the
+  # cti_mgr empty-output fix (#8).
+  num_ctx: 32768
+  num_predict: 4096  # reserve output headroom so a full prompt can't zero out generation
+  temperature: 0.15
+skills:
+  - arch-analysis
+  - secure-design
+  - security-requirements
+  - threat-modeling
+nice_work_role: SP-ARC-001
